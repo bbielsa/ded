@@ -107,9 +107,20 @@ namespace Editor
                             cropped = "";
 
                     if (cropped.Length > Width - gutterWidth)
-                        cropped = cropped.Substring(0, Width - gutterWidth);
+                    {
+                        _console.Write(" {0}", cropped.Substring(0, Width - gutterWidth - 1));
 
-                    _console.Write(" {0}", cropped);
+                        _console.ForegroundColor = ConsoleColor.Black;
+                        _console.BackgroundColor = ConsoleColor.Red;
+                        {
+                            _console.Write("$");
+                        }
+                        _console.ResetColor();
+                    }
+                    else
+                    {
+                        _console.Write(" {0}", cropped);
+                    }
                 }
             }
         }
