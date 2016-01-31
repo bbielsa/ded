@@ -58,6 +58,17 @@ namespace Editor
                 return true;
             }
 
+            if (Cursor.Column < StartColumn)
+            {
+                StartColumn = Cursor.Column;
+                return true;
+            }
+            else if (Cursor.Column >= StartColumn + Width - GetGutterWidth())
+            {
+                StartColumn = Cursor.Column - (Width - GetGutterWidth()) + 1;
+                return true;
+            }
+
             return false;
         }
 
@@ -81,13 +92,24 @@ namespace Editor
                     var line = Buffer.Lines[lineIndex];
 
                     _console.ForegroundColor = ConsoleColor.Black;
-                    _console.BackgroundColor = ConsoleColor.Gray;
+                    _console.BackgroundColor = StartColumn == 0 ? ConsoleColor.Gray : ConsoleColor.Red;
                     {
                         _console.Write("{0}", (lineIndex + 1).ToString().PadLeft(gutterWidth - 1));
                     }
                     _console.ResetColor();
 
-                    _console.Write(" {0}", line.Data);
+                    var cropped = line.Data;
+
+                    if (StartColumn != 0)
+                        if (StartColumn < line.Data.Length)
+                            cropped = cropped.Substring(StartColumn);
+                        else
+                            cropped = "";
+
+                    if (cropped.Length > Width - gutterWidth)
+                        cropped = cropped.Substring(0, Width - gutterWidth);
+
+                    _console.Write(" {0}", cropped);
                 }
             }
         }
