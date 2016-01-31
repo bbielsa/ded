@@ -8,16 +8,22 @@ namespace Editor
         public Editor ActiveEditor;
         public List<Editor> Editors = new List<Editor>();
 
+        private IConsole _console;
         private int numUntitled = 0;
+
+        public Workspace(IConsole console)
+        {
+            _console = console;
+        }
 
         public void Run()
         {
             if (Editors.Count == 0)
             {
-                Console.Clear();
-                Console.CursorTop = 2;
-                Console.CursorLeft = 4;
-                Console.Write("* No editors! Press Ctrl+N to create or Ctrl+O to open!");
+                _console.Clear();
+                _console.CursorTop = 2;
+                _console.CursorLeft = 4;
+                _console.Write("* No editors! Press Ctrl+N to create or Ctrl+O to open!");
             }
             else
             {
@@ -26,7 +32,7 @@ namespace Editor
 
             while (true)
             {
-                var keyInfo = Console.ReadKey(true);
+                var keyInfo = _console.ReadKey(true);
                 if (keyInfo.Modifiers.HasFlag(ConsoleModifiers.Control))
                 {
                     switch (keyInfo.Key)
@@ -115,7 +121,7 @@ namespace Editor
 
         private void NewEditor()
         {
-            Editors.Insert(0, new Editor(string.Format("untitled {0}", ++numUntitled), 0, 0, 80, 24));
+            Editors.Insert(0, new Editor(_console, string.Format("untitled {0}", ++numUntitled), 0, 0, 80, 24));
             ActiveEditor = Editors[0];
             ResizeEditors();
             RedrawEditors();
