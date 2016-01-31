@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            var ws = new Workspace();
+            var ws = new Workspace(new DotNetConsole());
             ws.Run();
         }
     }

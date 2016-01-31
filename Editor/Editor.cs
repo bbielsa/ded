@@ -33,8 +33,11 @@ namespace Editor
         public Cursor Cursor = new Cursor(0, 0);
         public Buffer Buffer = new Buffer();
 
-        public Editor(string name, int x, int y, int w, int h)
+        private IConsole _console;
+
+        public Editor(IConsole console, string name, int x, int y, int w, int h)
         {
+            _console = console;
             Name = name;
             X = x;
             Y = y;
@@ -70,46 +73,46 @@ namespace Editor
 
                 ClearLine(X, cy, Width);
 
-                Console.CursorTop = cy;
-                Console.CursorLeft = X;
+                _console.CursorTop = cy;
+                _console.CursorLeft = X;
 
                 if (lineIndex < Buffer.Lines.Count)
                 {
                     var line = Buffer.Lines[lineIndex];
 
-                    Console.ForegroundColor = ConsoleColor.Black;
-                    Console.BackgroundColor = ConsoleColor.Gray;
+                    _console.ForegroundColor = ConsoleColor.Black;
+                    _console.BackgroundColor = ConsoleColor.Gray;
                     {
-                        Console.Write("{0}", (lineIndex + 1).ToString().PadLeft(gutterWidth - 1));
+                        _console.Write("{0}", (lineIndex + 1).ToString().PadLeft(gutterWidth - 1));
                     }
-                    Console.ResetColor();
+                    _console.ResetColor();
 
-                    Console.Write(" {0}", line.Data);
+                    _console.Write(" {0}", line.Data);
                 }
             }
         }
 
         private void ClearLine(int x, int y, int w)
         {
-            Console.CursorTop = y;
-            Console.CursorLeft = x;
+            _console.CursorTop = y;
+            _console.CursorLeft = x;
 
             for (int i = 0; i < w; i++)
-                Console.Write(' ');
+                _console.Write(' ');
         }
 
         private void RenderHeader(int gutterWidth)
         {
-            Console.ForegroundColor = ConsoleColor.Black;
-            Console.BackgroundColor = ConsoleColor.Gray;
+            _console.ForegroundColor = ConsoleColor.Black;
+            _console.BackgroundColor = ConsoleColor.Gray;
             {
                 ClearLine(X, Y, Width);
 
-                Console.CursorTop = Y;
-                Console.CursorLeft = X;
-                Console.Write("{0} {1}", "#".PadLeft(gutterWidth - 1), Name);
+                _console.CursorTop = Y;
+                _console.CursorLeft = X;
+                _console.Write("{0} {1}", "#".PadLeft(gutterWidth - 1), Name);
             }
-            Console.ResetColor();
+            _console.ResetColor();
         }
 
         public void ActivateCursor()
@@ -117,8 +120,8 @@ namespace Editor
             int x, y;
             Translate(Cursor, out x, out y);
 
-            Console.CursorTop = y;
-            Console.CursorLeft = x;
+            _console.CursorTop = y;
+            _console.CursorLeft = x;
         }
 
         public bool HandleInput(EditorInput input)
