@@ -16,7 +16,7 @@ namespace Editor
         public Workspace(IConsole console)
         {
             _console = console;
-            commandPalette = new CommandPalette(20, 1, 40);
+            commandPalette = new CommandPalette(_console, 20, 1, 40);
 
             commandPalette.CommandRecieved += (object sender, CommandArgs commandArgs) =>
             {

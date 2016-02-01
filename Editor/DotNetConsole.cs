@@ -56,5 +56,11 @@ namespace Editor
         public void Dispose()
         {
         }
+
+        public void SetCursorPosition(int x, int y)
+        {
+            CursorLeft = x;
+            CursorTop = y;
+        }
     }
 }

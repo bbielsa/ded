@@ -7,6 +7,8 @@ namespace Editor
         int CursorLeft { get; set; }
         int CursorTop { get; set; }
 
+        void SetCursorPosition(int x, int y);
+
         ConsoleColor ForegroundColor { get; set; }
         ConsoleColor BackgroundColor { get; set; }
         void ResetColor();
@@ -14,7 +16,7 @@ namespace Editor
         void Clear();
         void Write(char value);
         void Write(string value);
-
+        
         ConsoleKeyInfo ReadKey(bool intercept);
     }
 

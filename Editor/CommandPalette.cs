@@ -29,9 +29,12 @@ namespace Editor
 
         private Cursor cursor;
         private Buffer buffer;
+        private IConsole console;
 
-        public CommandPalette(int x, int y, int w)
+        public CommandPalette(IConsole context, int x, int y, int w)
         {
+            console = context;
+
             Focused = true;
 
             X = x;
@@ -54,39 +57,39 @@ namespace Editor
             if (!Focused)
                 return;
 
-            Console.BackgroundColor = ConsoleColor.DarkGray;
-            Console.ForegroundColor = ConsoleColor.White;
+            console.BackgroundColor = ConsoleColor.DarkGray;
+            console.ForegroundColor = ConsoleColor.White;
 
             // Draw box
 
             for(int y = Y; y < Y + Height - 1; y++)
             {
-                Console.SetCursorPosition(X, y);
-                Console.Write(" ");
-                Console.SetCursorPosition(X + Width - 1, y);
-                Console.Write(" ");
+                console.SetCursorPosition(X, y);
+                console.Write(" ");
+                console.SetCursorPosition(X + Width - 1, y);
+                console.Write(" ");
             }
 
-            Console.SetCursorPosition(X, Y + Height - 1);
-            Console.Write(new string(' ', Width));
+            console.SetCursorPosition(X, Y + Height - 1);
+            console.Write(new string(' ', Width));
 
             // Before rohan yells at me because he thought I forgot to change the foreground color:
             // it was a design choice, retard
 
-            Console.BackgroundColor = ConsoleColor.Black;
+            console.BackgroundColor = ConsoleColor.Black;
 
             // Clear text
-            Console.SetCursorPosition(X + 1, Y + Height - 2);
-            Console.Write(new string(' ', Width - 2));
+            console.SetCursorPosition(X + 1, Y + Height - 2);
+            console.Write(new string(' ', Width - 2));
 
-            Console.SetCursorPosition(X + 1, Y);
-            Console.Write(buffer);
+            console.SetCursorPosition(X + 1, Y);
+            console.Write(buffer.ToString());
         }
 
         public void ActivateCursor()
         {
             //Debug.Print("ActivateCursor()");
-            Console.SetCursorPosition(X + 1 + cursor.Column, Y);
+            console.SetCursorPosition(X + 1 + cursor.Column, Y);
         }
 
         public void Hide()
