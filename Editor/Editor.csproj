@@ -44,10 +44,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Buffer.cs" />
+    <Compile Include="CommandPalette.cs" />
     <Compile Include="Cursor.cs" />
     <Compile Include="DotNetConsole.cs" />
     <Compile Include="Editor.cs" />
     <Compile Include="IConsole.cs" />
+    <Compile Include="ITextInput.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

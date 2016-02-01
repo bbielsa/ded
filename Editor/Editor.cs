@@ -18,7 +18,7 @@ namespace Editor
         End,
     }
 
-    public class Editor
+    public class Editor : ITextInput
     {
         public string Name;
 

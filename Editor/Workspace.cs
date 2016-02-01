@@ -5,15 +5,38 @@ namespace Editor
 {
     public class Workspace
     {
-        public Editor ActiveEditor;
+        public ITextInput ActiveEditor;
         public List<Editor> Editors = new List<Editor>();
 
         private IConsole _console;
         private int numUntitled = 0;
+        private CommandPalette commandPalette;
+        private Editor lastEditor;
 
         public Workspace(IConsole console)
         {
             _console = console;
+            commandPalette = new CommandPalette(20, 1, 40);
+
+            commandPalette.CommandRecieved += (object sender, CommandArgs commandArgs) =>
+            {
+                string command = commandArgs.Command;
+
+                switch (command)
+                {
+                    case "new":
+                        NewEditor();
+                        lastEditor = Editors[0];
+                        ActiveEditor = commandPalette;
+                        return;
+                    case "open":
+                        //OpenEditor();
+                    case "save":
+                        //SaveEditor();
+                    default:
+                        return;
+                }
+            };
         }
 
         public void Run()
@@ -37,6 +60,12 @@ namespace Editor
                 {
                     switch (keyInfo.Key)
                     {
+                        case ConsoleKey.X:
+                            //if (commandPalette.Focused) break;
+                            lastEditor = (Editor) ActiveEditor;
+                            commandPalette.Show();
+                            ActiveEditor = commandPalette;
+                            break;
                         case ConsoleKey.N:
                             NewEditor();
                             break;
@@ -60,10 +89,11 @@ namespace Editor
                     }
                 }
 
-                if (Editors.Count == 0)
+                if (Editors.Count == 0 && !commandPalette.Focused)
                 {
                     continue;
                 }
+                
 
                 bool redraw = false;
 
@@ -81,8 +111,26 @@ namespace Editor
                     case ConsoleKey.RightArrow:
                         redraw = ActiveEditor.HandleInput(EditorInput.RightArrow);
                         break;
-                    case ConsoleKey.Enter:
+                    case ConsoleKey.Enter:    
+                        // I dont fucking care, sue me
+                        // This is why we need to fucking refactor
                         redraw = ActiveEditor.HandleInput(EditorInput.Enter);
+                        if (ActiveEditor is CommandPalette && lastEditor != null)
+                        {
+                            ActiveEditor = lastEditor;
+                            RedrawEditors();
+                        }
+                        else if(Editors.Count == 0)
+                        {
+                            lastEditor = null;
+                            ActiveEditor = null;
+                            _console.ResetColor();
+                            _console.Clear();
+                            _console.CursorTop = 2;
+                            _console.CursorLeft = 4;
+                            _console.Write("* No editors! Press Ctrl+N to create or Ctrl+O to open!");
+                            continue;
+                        }
                         break;
                     case ConsoleKey.Backspace:
                         redraw = ActiveEditor.HandleInput(EditorInput.Backspace);
