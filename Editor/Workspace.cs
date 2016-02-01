@@ -100,10 +100,16 @@ namespace Editor
                 switch (keyInfo.Key)
                 {
                     case ConsoleKey.UpArrow:
-                        redraw = ActiveEditor.HandleInput(EditorInput.UpArrow);
+                        if (keyInfo.Modifiers.HasFlag(ConsoleModifiers.Control))
+                            redraw = ActiveEditor.HandleInput(EditorInput.ControlUpArrow);
+                        else
+                            redraw = ActiveEditor.HandleInput(EditorInput.UpArrow);
                         break;
                     case ConsoleKey.DownArrow:
-                        redraw = ActiveEditor.HandleInput(EditorInput.DownArrow);
+                        if (keyInfo.Modifiers.HasFlag(ConsoleModifiers.Control))
+                            redraw = ActiveEditor.HandleInput(EditorInput.ControlDownArrow);
+                        else
+                            redraw = ActiveEditor.HandleInput(EditorInput.DownArrow);
                         break;
                     case ConsoleKey.LeftArrow:
                         redraw = ActiveEditor.HandleInput(EditorInput.LeftArrow);
@@ -140,6 +146,33 @@ namespace Editor
                             redraw = ActiveEditor.HandleInput(EditorInput.ShiftTab);
                         else
                             redraw = ActiveEditor.HandleInput(EditorInput.Tab);
+                        break;
+                    case ConsoleKey.Home:
+                        if (keyInfo.Modifiers.HasFlag(ConsoleModifiers.Control))
+                            redraw = ActiveEditor.HandleInput(EditorInput.ControlHome);
+                        else
+                            redraw = ActiveEditor.HandleInput(EditorInput.Home);
+                        break;
+                    case ConsoleKey.End:
+                        if (keyInfo.Modifiers.HasFlag(ConsoleModifiers.Control))
+                            redraw = ActiveEditor.HandleInput(EditorInput.ControlEnd);
+                        else
+                            redraw = ActiveEditor.HandleInput(EditorInput.End);
+                        break;
+                    case ConsoleKey.PageDown:
+                        if (keyInfo.Modifiers.HasFlag(ConsoleModifiers.Control))
+                            redraw = ActiveEditor.HandleInput(EditorInput.ControlPageDown);
+                        else
+                            redraw = ActiveEditor.HandleInput(EditorInput.PageDown);
+                        break;
+                    case ConsoleKey.PageUp:
+                        if (keyInfo.Modifiers.HasFlag(ConsoleModifiers.Control))
+                            redraw = ActiveEditor.HandleInput(EditorInput.ControlPageUp);
+                        else
+                            redraw = ActiveEditor.HandleInput(EditorInput.PageUp);
+                        break;
+                    case ConsoleKey.Delete:
+                        redraw = ActiveEditor.HandleInput(EditorInput.Delete);
                         break;
                 }
 

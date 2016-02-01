@@ -5,17 +5,24 @@ namespace Editor
     public enum EditorInput
     {
         UpArrow,
+        ControlUpArrow,
         DownArrow,
+        ControlDownArrow,
         LeftArrow,
         RightArrow,
         Enter,
         Backspace,
+        Delete,
         Tab,
         ShiftTab,
         PageUp,
+        ControlPageUp,
         PageDown,
+        ControlPageDown,
         Home,
+        ControlHome,
         End,
+        ControlEnd,
     }
 
     public class Editor : ITextInput
@@ -47,29 +54,30 @@ namespace Editor
 
         public bool AdjustWindow()
         {
+            bool result = false;
             if (Cursor.Line < StartLine)
             {
                 StartLine = Cursor.Line;
-                return true;
+                result = true;
             }
             else if (Cursor.Line >= StartLine + (Height - 1))
             {
                 StartLine = Cursor.Line - Height + 2;
-                return true;
+                result = true;
             }
 
             if (Cursor.Column < StartColumn)
             {
                 StartColumn = Cursor.Column;
-                return true;
+                result = true;
             }
             else if (Cursor.Column >= StartColumn + Width - GetGutterWidth())
             {
                 StartColumn = Cursor.Column - (Width - GetGutterWidth()) + 1;
-                return true;
+                result = true;
             }
 
-            return false;
+            return result;
         }
 
         public void Render()
@@ -194,12 +202,82 @@ namespace Editor
                         return true;
                     }
                     return false;
+                case EditorInput.Delete:
+                    if (!Cursor.AtLastColumn(Buffer))
+                    {
+                        var newCursor = new Cursor(Cursor.Line, Cursor.Column + 1);
+                        Buffer.RemoveAt(newCursor, 1);
+                        return true;
+                    }
+                    else
+                    {
+                        if (!Cursor.AtLastLine(Buffer))
+                        {
+                            Buffer.MergeLine(Cursor.Line + 1);
+                            return true;
+                        }
+                    }
+                    return false;
                 case EditorInput.Tab:
                     Buffer.InsertAt(Cursor, "    ");
                     Cursor.Column += 4;
                     return true;
                 case EditorInput.ShiftTab:
                     return false;
+                case EditorInput.Home:
+                    Cursor.Column = 0;
+                    return false;
+                case EditorInput.ControlHome:
+                    Cursor.Line = 0;
+                    Cursor.Column = 0;
+                    return false;
+                case EditorInput.End:
+                    Cursor.Column = Buffer.Lines[Cursor.Line].Data.Length;
+                    return false;
+                case EditorInput.ControlEnd:
+                    Cursor.Line = Buffer.Lines.Count - 1;
+                    Cursor.Column = Buffer.Lines[Cursor.Line].Data.Length;
+                    return false;
+                case EditorInput.PageUp:
+                    int newLine = Cursor.Line - (Height - 1);
+                    if (newLine < 0)
+                        Cursor.Line = 0;
+                    else
+                        Cursor.Line = newLine;
+
+                    this.StartLine = Cursor.Line;
+
+                    if (Cursor.Column > Buffer.Lines[Cursor.Line].Data.Length)
+                        Cursor.Column = Buffer.Lines[Cursor.Line].Data.Length;
+                    return true;
+                case EditorInput.ControlPageUp:
+                    Cursor.Line = StartLine;
+                    Cursor.Column = StartColumn;
+                    return false;
+                case EditorInput.PageDown:
+                    newLine = Cursor.Line + (Height - 1);
+                    if (newLine > Buffer.Lines.Count)
+                        Cursor.Line = Buffer.Lines.Count - 1;
+                    else
+                        Cursor.Line = newLine;
+
+                    this.StartLine = Cursor.Line;
+
+                    if (Cursor.Column > Buffer.Lines[Cursor.Line].Data.Length)
+                        Cursor.Column = Buffer.Lines[Cursor.Line].Data.Length;
+                    return true;
+                case EditorInput.ControlPageDown:
+                    Cursor.Line = Math.Min(StartLine + Height - 2, Buffer.Lines.Count - 1);
+                    Cursor.Column = Math.Min(StartColumn + Width - GetGutterWidth() - 1, Buffer.Lines[Cursor.Line].Data.Length);
+                    return false;
+                case EditorInput.ControlUpArrow:
+                    if (StartLine > 0)
+                        StartLine -= 1;
+                    return true;
+                case EditorInput.ControlDownArrow:
+                    if (StartLine < Buffer.Lines.Count)
+                        StartLine += 1;
+                    return true;
             }
 
             return false;
