@@ -6,8 +6,8 @@
     <ProjectGuid>{909E713A-EEE5-4A68-9DE7-61049F65279E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EditorTests</RootNamespace>
-    <AssemblyName>EditorTests</AssemblyName>
+    <RootNamespace>DedCoreTests</RootNamespace>
+    <AssemblyName>Ded.Core.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -53,12 +53,6 @@
     <Compile Include="BufferTest.cs" />
     <Compile Include="CursorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Editor\DedCore.csproj">
-      <Project>{e8fa41c6-32c7-48a2-b88a-0126395595c8}</Project>
-      <Name>DedCore</Name>
-    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

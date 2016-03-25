@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DedCLI</RootNamespace>
-    <AssemblyName>DedCLI</AssemblyName>
+    <AssemblyName>Ded.CLI</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,8 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Test\Class1.cs" />
-    <Compile Include="Test\Class2.cs" />
     <Compile Include="UI\CommandPalette.cs" />
     <Compile Include="DotNetConsole.cs" />
     <Compile Include="IConsole.cs" />
@@ -54,12 +52,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Editor\DedCore.csproj">
-      <Project>{e8fa41c6-32c7-48a2-b88a-0126395595c8}</Project>
-      <Name>DedCore</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
