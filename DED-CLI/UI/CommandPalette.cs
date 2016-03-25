@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 
-namespace Editor
+namespace DedCLI.UI
 {
     public class CommandArgs : EventArgs
     {

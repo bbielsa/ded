@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Editor", "Editor\Editor.csproj", "{E8FA41C6-32C7-48A2-B88A-0126395595C8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DED-Core", "Editor\DED-Core.csproj", "{E8FA41C6-32C7-48A2-B88A-0126395595C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EditorTests", "EditorTests\EditorTests.csproj", "{909E713A-EEE5-4A68-9DE7-61049F65279E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DED-Core-Tests", "EditorTests\DED-Core-Tests.csproj", "{909E713A-EEE5-4A68-9DE7-61049F65279E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

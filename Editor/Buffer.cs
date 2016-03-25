@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text;
 
-namespace Editor
+namespace DedCore.Editor
 {
     public class Buffer
     {

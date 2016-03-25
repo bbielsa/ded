@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Editor
+namespace DedCore.Editor
 {
     public enum EditorInput
     {

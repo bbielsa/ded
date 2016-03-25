@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E8FA41C6-32C7-48A2-B88A-0126395595C8}</ProjectGuid>
+    <ProjectGuid>{7A651CCD-D45B-48AA-AF01-A5541C5D9645}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Editor</RootNamespace>
-    <AssemblyName>Editor</AssemblyName>
+    <RootNamespace>DedCLI</RootNamespace>
+    <AssemblyName>DedCLI</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,20 +43,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Buffer.cs" />
-    <Compile Include="CommandPalette.cs" />
-    <Compile Include="Cursor.cs" />
+    <Compile Include="Test\Class1.cs" />
+    <Compile Include="Test\Class2.cs" />
+    <Compile Include="UI\CommandPalette.cs" />
     <Compile Include="DotNetConsole.cs" />
-    <Compile Include="Editor.cs" />
     <Compile Include="IConsole.cs" />
-    <Compile Include="ITextInput.cs" />
-    <Compile Include="Line.cs" />
+    <Compile Include="UI\ITextInput.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Workspace.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Editor\DedCore.csproj">
+      <Project>{e8fa41c6-32c7-48a2-b88a-0126395595c8}</Project>
+      <Name>DedCore</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

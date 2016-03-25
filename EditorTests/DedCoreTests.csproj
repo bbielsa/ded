@@ -55,9 +55,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Editor\Editor.csproj">
+    <ProjectReference Include="..\Editor\DedCore.csproj">
       <Project>{e8fa41c6-32c7-48a2-b88a-0126395595c8}</Project>
-      <Name>Editor</Name>
+      <Name>DedCore</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

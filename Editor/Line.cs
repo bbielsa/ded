@@ -1,4 +1,4 @@
-﻿namespace Editor
+﻿namespace DedCore.Editor
 {
     public enum LineEnding
     {
