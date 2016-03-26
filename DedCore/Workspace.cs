@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DedCore.Editor
+namespace DedCore
 {
     public class Workspace
     {

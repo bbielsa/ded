@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace DedCore.Editor
+namespace DedCore
 {
     public enum MoveDirection
     {
